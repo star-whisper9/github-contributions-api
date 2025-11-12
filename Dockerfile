@@ -6,7 +6,8 @@ WORKDIR /app
 ## Dependencies installation
 RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --frozen-lockfile
+### ignore postinstall scripts to avoid automatic builds that may fail in CI/CD
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 ## Copy source code and configuration files
 COPY . .
@@ -22,7 +23,8 @@ WORKDIR /app
 ## Production only dependencies installation
 RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --frozen-lockfile --prod
+### ignore postinstall scripts to avoid automatic builds that may fail in CI/CD
+RUN pnpm install --frozen-lockfile --prod --ignore-scripts
 
 # Copy compiled files from build stage
 COPY --from=builder /app/build ./build
