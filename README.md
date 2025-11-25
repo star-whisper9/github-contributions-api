@@ -26,7 +26,7 @@ services:
         ports:
         # recommand: use localhost bind for security reason
         # see https://docs.docker.com/engine/network/packet-filtering-firewalls/#docker-and-ufw for details
-        - 127.0.0.1:3000:3000
+          - 127.0.0.1:3000:3000
         restart: unless-stopped
         healthcheck:
             test:
